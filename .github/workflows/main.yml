@@ -1,0 +1,58 @@
+name: Run tests
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      # Add postgreSQL database as a service
+      postgres:
+        image: postgres:14
+        env:
+          # Define env variables using github secrets and variables
+          POSTGRES_USER: ${{ secrets.PG_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          POSTGRES_DB: ${{ vars.PG_DB }}
+        ports:
+          - ${{ vars.PG_PORT }}:${{ vars.PG_PORT }}
+        # Check if the server up and running
+        options: >-
+          --health-cmd "pg_isready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: "v1.42.2"
+
+      - name: Flyway Action
+        uses: red-gate/FlywayGitHubAction@main
+        with:
+          url: jdbc:postgresql://postgres:${{ vars.PG_PORT }}/${{ vars.PG_DB }}
+          user: ${{ secrets.PG_USER }}
+          password: ${{ secrets.PG_PASSWORD }}
+          # The directory and .sql file is in the github repo
+          locations: filesystem:./flyway/sql
+          #extraArgs: -outOfOrder=true
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Run tests
+        # Define env variables for PostgreSQL driver in our application
+        env:
+          PGUSER: ${{ secrets.PG_USER }}
+          PGPASSWORD: ${{ secrets.PG_PASSWORD }}
+          PGHOST: ${{ vars.PG_HOST }}
+          PGPORT: ${{ vars.PG_PORT }}
+          PGDATABASE: ${{ vars.PG_DB }}
+        run: docker compose run --entrypoint=npx e2e-playwright playwright test && docker compose rm -sf
