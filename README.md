@@ -42,8 +42,32 @@ To run the web application on your local machine, follow these steps:
     ```bash
     docker compose build
    ```
+
+4. Create file ```project.env``` and add the following 
+   environment variables:
+   ```bash
+   # Database configuration for PostgreSQL (running in container called "database-server")
+   POSTGRES_USER=username # set your username
+   POSTGRES_PASSWORD=password # set password
+   POSTGRES_DB=database # database name
+
+   # Database configuration for Flyway (used for database migrations)
+   FLYWAY_USER=username # use the same username as for POSTGRES_USER
+   FLYWAY_PASSWORD=password # use the same username as for POSTGRES_PASSWORD
+   FLYWAY_URL=jdbc:postgresql://db_project_35:5432/database 
+
+   # Database configuration for PostgreSQL driver
+   PGUSER=username # use the same username as for POSTGRES_USER
+   PGPASSWORD=password # use the same username as for POSTGRES_PASSWORD
+   PGHOST=db_project_35 
+   PGPORT=5432
+   PGDATABASE=database # use the same username as for POSTGRES_DB
+
+   # Deno cache location (avoid reloading depedencies over and over)
+   DENO_DIR=/app-cache
+   ```
    
-4. Start the application:
+5. Start the application:
 
     ```bash
     docker compose up

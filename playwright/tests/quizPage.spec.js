@@ -35,7 +35,7 @@ test('Start quiz', async ({ page }) => {
     await expect(page.locator('td > p').filter({hasText: optionText3})).toBe;
 });
 
-test('Make wrong answer', async ({ page }) => {
+test('Choose the wrong answer', async ({ page }) => {
     await page.goto('http://localhost:7777/');
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
@@ -74,7 +74,7 @@ test('Make wrong answer', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Next question' })).toBe;
 });
 
-test('Make correct answer', async ({ page }) => {
+test('Choose the correct answer', async ({ page }) => {
     await page.goto('http://localhost:7777/');
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
