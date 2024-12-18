@@ -47,6 +47,10 @@ jobs:
       - name: Build images
         run: docker compose build
 
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.PROJECT_ENV }}" > project.env
+
       - name: Run tests
         # Define env variables for PostgreSQL driver in our application
         env:
