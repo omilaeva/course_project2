@@ -1,4 +1,4 @@
-name: Run tests
+name: Run tests and deploy
 
 on:
   push:
@@ -60,3 +60,31 @@ jobs:
           PGPORT: ${{ vars.PG_PORT }}
           PGDATABASE: ${{ vars.PG_DB }}
         run: docker compose run --entrypoint=npx e2e-playwright playwright test && docker compose rm -sf
+        
+  deploy:
+    runs-on: ubuntu-latest
+    # Run only if test job succeed
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: JorgeLNJunior/render-deploy@v1.4.4
+        with:
+          # For Render.com deploy you have to create first a
+          # Web Service connected to your github account
+          # Remember to turn off the Auto-Deploy feature in
+          # Advanced settings when creating a web service
+          # (or later in Settings section)
+          # You can get RENDER_SERVICE_ID from the URL of your
+          # web service in Render.com (looks like: srv-csu5k0q3esus73c7ktig)
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          # To generate API key go to your Account Settings on Render.com
+          # Then API Keys, press Create API Key, give it a name
+          # and remember to copy it immediately from the output field
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          clear_cache: true
+          wait_deploy: true
+          github_deployment: true
+          deployment_environment: 'production'
+          # You don't need to generate this token
+          # see https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication
+          github_token: ${{ secrets.GITHUB_TOKEN }}
