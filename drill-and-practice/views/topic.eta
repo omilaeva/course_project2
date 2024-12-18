@@ -1,0 +1,44 @@
+<% layout("./layouts/layout.eta") %>
+
+<div class="w3-highway-green" id="topic">
+<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; height:100vh;">
+<% if (it.topic) { %>
+
+        <% if (it.errors) { %>
+                <% it.errors.forEach((error) => { %>
+                    <p class="w3-xlarge w3-red"><%= error %></p>
+                <% }); %>
+            <% } %>
+
+    <h2 class="w3-wide w3-center" style="overflow-wrap: break-word;"><%= it.topic.name %></h2>
+
+    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+        <% let i = 0; %>
+        <% it.questions.forEach((question) => { %>
+        <% if (i++ === 3) { i = 1; %>
+    </div>
+    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+        <% } %>
+        <div class="w3-third w3-margin-bottom">
+            <div class="w3-container w3-sand">
+                <p style="overflow-wrap: break-word;"><b><%= question.question_text %></b></p>
+                <a class="w3-button w3-black w3-margin-bottom" href="/topics/<%= it.topic.id %>/questions/<%= question.id %>">Open</a>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+    <div class="w3-container w3-padding-64 w3-highway-green" style="max-width:800px">
+        <h2 class="w3-wide w3-center">Add question</h2>
+        <form  class="w3-container" method="POST" action="/topics/<%= it.topic.id %>/questions">
+            <p><label class="w3-large" for="question_text"><i class="fa fa-edit"></i> Enter question: </label></p>
+            <input class="w3-input w3-border" type="text" id="question_text" name="question_text" minlength="1"
+            <% if (it.question_text) { %> value="<%= it.question_text %>" <% } %>/>
+            <input  class="w3-btn w3-black w3-padding-16 w3-section w3-right" type="submit" value="Add"/>
+        </form>
+    </div>
+<% } else {%>
+<h2 class="w3-wide w3-center">Unavailable</h2>
+<% } %>
+</div>
+</div>

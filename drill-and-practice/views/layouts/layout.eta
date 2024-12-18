@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2017.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: "Lato", sans-serif
+        }
+
+        .mySlides {
+            display: none
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-highway-green w3-card">
+        <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+        <a href="/topics" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOPICS</a>
+        <a href="/quiz" class="w3-bar-item w3-button w3-padding-large w3-hide-small">QUIZ</a>
+        <div class="w3-dropdown-hover w3-hide-small">
+            <button class="w3-padding-large w3-button" title="More">USER <i class="fa fa-caret-down"></i></button>
+            <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                <% if (!it.user) { %>
+                    <a href="/auth/register" class="w3-bar-item w3-button">Register</a>
+                    <a href="/auth/login" class="w3-bar-item w3-button">Log in</a>
+                <% } else { %>
+                    <p class="w3-padding"><%= it.user.email %></p>
+                    <a href="/logout" class="w3-bar-item w3-button">Log out</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+    <%~ it.body %>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+</body>
+</html>
+

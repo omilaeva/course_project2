@@ -1,0 +1,6 @@
+app-cache
+project.env
+playwright/node_modules
+playwright/playwright.config.js
+playwright/package-lock.json
+playwright/package.json

@@ -1,0 +1,82 @@
+<% layout("./layouts/layout.eta") %>
+
+<div class="w3-highway-green" id="topic">
+<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px;">
+    <% if (it.topic && it.question) { %>
+    <h1 class="w3-wide w3-center" style="overflow-wrap: break-word;">
+        <%= it.topic.name %>
+    </h1>
+    <br/>
+    <div class="w3-card-4">
+        <header class="w3-container">
+            <h2 class="w3-wide w3-center" style="overflow-wrap: break-word;">
+                <%= it.question.question_text %>
+            </h2>
+        </header>
+        <div class="w3-responsible">
+            <% if (it.options.length > 0) { %>
+            <table class="w3-table w3-bordered">
+                <thead>
+                <tr>
+                    <th><strong>Option</strong></th>
+                    <th><strong>Is correct?</strong></th>
+                    <th><strong>Action</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% it.options.forEach((option) => { %>
+                <tr>
+                    <td>
+                        <%= option.option_text %>
+                    </td>
+                    <td>
+                        <input class="w3-check" type="checkbox" disabled <% if (option.is_correct) { %> checked <% } %>
+                    </td>
+                    <td>
+                        <form class="w3-container" method="POST"
+                              action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
+                            <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+            <form class="w3-container" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
+                <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Delete question"/>
+            </form>
+            <% } %>
+        </div>
+
+        <% if (it.errors) { %>
+        <% it.errors.forEach((error) => { %>
+        <p class="error">
+            <%= error %>
+        </p>
+        <% }); %>
+        <% } %>
+
+        <div class="w3-container w3-padding-64 w3-highway-green" style="max-width:800px">
+            <h2 class="w3-wide w3-center">Add option</h2>
+            <form class="w3-container" method="POST"
+                  action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
+                <p><label class="w3-large"><i class="fa fa-align-justify"></i> Option</label></p>
+                <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"><% if (it.optionText) { %><%=it.optionText%><% } %></textarea>
+            </br>
+
+            <label class="w3-large" for="is_correct"><i class="fa fa-check-square-o"></i> Is correct? </label>
+            <input class="w3-check" type="checkbox" name="is_correct" id="is_correct"
+            <% if (it.optionIsCorrect) { %> checked
+            <% } %>/>
+        </br>
+    </br>
+    <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Add"/>
+</form>
+</div>
+        </div>
+<% } else { %>
+<h1>Unavailable</h1>
+<% } %>
+        </div>
+        </div>

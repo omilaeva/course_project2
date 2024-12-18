@@ -1,0 +1,31 @@
+<% layout("./layouts/layout.eta") %>
+<!-- The Quiz -->
+<div class="w3-highway-green" id="topic">
+<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; height:100vh;">
+    <h2 class="w3-wide w3-center">Quiz</h2>
+    <div class="w3-content">
+        <% if ( it.error ) { %>
+            <p class="w3-large"><%= it.error %></p>
+        <% } else { %>
+        <p class="w3-xlarge" id="questionText"><%= it.question.question_text %></p>
+        <fieldset class="w3-container">
+            <legend class="w3-large">Choose one option: </legend>
+            <table class="w3-table w3-bordered">
+        <% it.options.forEach((option) => { %>
+            <tr>
+                <td><p class="w3-large"><%= option.option_text %></p></td>
+                <td>
+                    <form class="w3-container w3-padding-large" method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= option.id %>">
+                        <input class="w3-button w3-black" type="submit" value="Choose"/>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+            </table>
+        </fieldset>
+        </br>
+        <button class="w3-button w3-black w3-margin-bottom" onclick="location.href = '/quiz'">Choose other topic</button>
+        <% } %>
+    </div>
+</div></div>
+
