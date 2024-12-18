@@ -1,8 +1,7 @@
 import * as questionService from "../../services/questionService.js";
 import * as topicManager from "../../managers/topicManager.js";
 
-const showTopic = async ({params, render, user}) => {
-    // TODO: process invalid topic id: check and show error page in case of invalid topic id!
+const showTopic = async ({params, render}) => {
     const topicData =  {
         topic: await topicManager.getTopicById(params.id),
         questions: await questionService.getAllByTopicId(params.id)
@@ -10,7 +9,7 @@ const showTopic = async ({params, render, user}) => {
     render("topic.eta", topicData );
 }
 
-const deleteTopicById = async ({params, render, response, user}) => {
+const deleteTopicById = async ({params, render, response}) => {
     const [done, errors] = await topicManager.deleteTopicById(params.id);
     if (done) {
         response.redirect("/topics");
@@ -25,11 +24,8 @@ const deleteTopicById = async ({params, render, response, user}) => {
 
 const addTopic =async ({request, render, response, user}) => {
     const formData = await request.body().value;
-    console.log(formData);
     const name = formData.get("name");
-    console.log(`name = ${name}`);
-    // TODO: replace 1 with current userId
-    const userId = 1;
+    const userId = user.id;
     const [done, errors] = await topicManager.addTopic(userId, name);
     if (!done) {
         const topicData = {
@@ -44,13 +40,8 @@ const addTopic =async ({request, render, response, user}) => {
 };
 
 
-const listTopics = async ({render, user}) => {
-    console.log(`User email = ${user.email}`);
-    const data = {
-        topics: await topicManager.getAllTopics()
-    };
-    console.dir(data);
-    render("topics.eta", data);
+const listTopics = async ({render}) => {
+    render("topics.eta", { topics: await topicManager.getAllTopics() });
 };
 
 export {showTopic, deleteTopicById, addTopic, listTopics};

@@ -35,4 +35,13 @@ const deleteById = async (id) => {
     return isDone;
 }
 
-export {getAllByTopicId, add, getById, deleteById};
+const deleteByTopicId = async (topicId) => {
+    const tmp = questions.filter(function (question) {
+        return question.topicId !== topicId;
+    });
+    const isDone = (tmp.length !== questions.length);
+    questions = tmp;
+    return isDone;
+}
+
+export {getAllByTopicId, add, getById, deleteById, deleteByTopicId};
