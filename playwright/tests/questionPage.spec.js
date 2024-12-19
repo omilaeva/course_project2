@@ -1,5 +1,9 @@
 import {expect, test} from "@playwright/test";
-import { addQuestion, addTopic, getRandomString} from "./utils/pageUtils.js";
+import {addQuestion, addTopic, getRandomString, waitForServer} from "./utils/pageUtils.js";
+
+test.beforeAll(async () => {
+    await waitForServer();
+});
 
 test('Add question to the topic', async ({ page }) => {
     await page.goto('http://localhost:7777/', { waitUntil: 'load' });

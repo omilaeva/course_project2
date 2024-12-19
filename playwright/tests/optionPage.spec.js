@@ -1,5 +1,9 @@
 import {expect, test} from "@playwright/test";
-import {addOption, addQuestion, addTopic, getRandomString} from "./utils/pageUtils.js";
+import {addOption, addQuestion, addTopic, getRandomString, waitForServer} from "./utils/pageUtils.js";
+
+test.beforeAll(async () => {
+    await waitForServer();
+});
 
 test('Add checked option to question', async ({ page }) => {
     await page.goto('http://localhost:7777/', { waitUntil: 'load' });

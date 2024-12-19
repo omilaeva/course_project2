@@ -1,18 +1,5 @@
 import {test, expect} from '@playwright/test';
-import {getRandomString} from "./utils/pageUtils.js";
-
-const waitForServer = async () => {
-    let isServerReady = false;
-    while (!isServerReady) {
-        try {
-            const response = await fetch('http://localhost:7777/');
-            if (response.ok) isServerReady = true;
-        } catch (error) {
-            console.log('Waiting for server to be ready...');
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-    }
-};
+import {getRandomString, waitForServer} from "./utils/pageUtils.js";
 
 test.beforeAll(async () => {
     await waitForServer();
@@ -32,6 +19,7 @@ test('Register new user', async ({page}) => {
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill(userEmail);
     await page.getByLabel('Password').fill(password);
+    await page.getByRole('button', { name: 'Login' }).waitFor();
     await page.getByRole('button', { name: 'Login' }).click();
     await expect(page.getByRole('heading', { name: 'Topics' })).toBe;
 });

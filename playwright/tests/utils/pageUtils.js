@@ -1,3 +1,16 @@
+const waitForServer = async () => {
+    let isServerReady = false;
+    while (!isServerReady) {
+        try {
+            const response = await fetch('http://localhost:7777/');
+            if (response.ok) isServerReady = true;
+        } catch (error) {
+            console.log('Waiting for server to be ready...');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+    }
+};
+
 const addTopic = async (page, topicName) => {
     await page.locator('#name').click();
     await page.locator('#name').fill(topicName);
@@ -30,4 +43,4 @@ function getRandomString(length) {
     }
     return result;
 }
-export {addTopic, addQuestion, addOption, getRandomString}
+export {waitForServer, addTopic, addQuestion, addOption, getRandomString}
