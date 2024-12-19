@@ -1,6 +1,23 @@
 import {test, expect} from '@playwright/test';
 import {getRandomString} from "./utils/pageUtils.js";
 
+const waitForServer = async () => {
+    let isServerReady = false;
+    while (!isServerReady) {
+        try {
+            const response = await fetch('http://localhost:7777/');
+            if (response.ok) isServerReady = true;
+        } catch (error) {
+            console.log('Waiting for server to be ready...');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+    }
+};
+
+test.beforeAll(async () => {
+    await waitForServer();
+});
+
 test('Register new user', async ({page}) => {
     await page.goto('http://localhost:7777/');
     await page.getByRole('link', {name: 'HOME'}).click();
