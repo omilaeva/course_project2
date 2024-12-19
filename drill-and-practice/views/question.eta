@@ -7,6 +7,7 @@
         <%= it.topic.name %>
     </h1>
     <br/>
+    <a class="w3-button w3-black w3-margin-bottom" href="/topics/<%= it.topic.id %>">Back</a>
     <div class="w3-card-4">
         <header class="w3-container">
             <h2 class="w3-wide w3-center" style="overflow-wrap: break-word;">
@@ -61,7 +62,7 @@
             <h2 class="w3-wide w3-center">Add option</h2>
             <form class="w3-container" method="POST"
                   action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
-                <p><label class="w3-large"><i class="fa fa-align-justify"></i> Option</label></p>
+                <p><label class="w3-large" for="option_text"><i class="fa fa-align-justify"></i> Option</label></p>
                 <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"><% if (it.optionText) { %><%=it.optionText%><% } %></textarea>
             </br>
 
