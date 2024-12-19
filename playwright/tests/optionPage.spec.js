@@ -2,7 +2,7 @@ import {expect, test} from "@playwright/test";
 import {addOption, addQuestion, addTopic, getRandomString} from "./utils/pageUtils.js";
 
 test('Add checked option to question', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');
@@ -26,7 +26,7 @@ test('Add checked option to question', async ({ page }) => {
 });
 
 test('Add unchecked option to question', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');
@@ -51,7 +51,7 @@ test('Add unchecked option to question', async ({ page }) => {
 });
 
 test('Delete one of two options', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');

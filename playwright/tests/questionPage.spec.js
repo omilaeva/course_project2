@@ -2,7 +2,7 @@ import {expect, test} from "@playwright/test";
 import { addQuestion, addTopic, getRandomString} from "./utils/pageUtils.js";
 
 test('Add question to the topic', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');
@@ -19,7 +19,7 @@ test('Add question to the topic', async ({ page }) => {
 });
 
 test('View question without options', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');

@@ -19,7 +19,7 @@ test.beforeAll(async () => {
 });
 
 test('Register new user', async ({page}) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', {name: 'HOME'}).click();
     await page.getByRole('link', {name: 'Register'}).click();
     await page.getByLabel('Email').click();
@@ -37,7 +37,7 @@ test('Register new user', async ({page}) => {
 });
 
 test('Logout', async ({page}) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');

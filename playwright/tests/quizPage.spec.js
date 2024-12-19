@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import {addOption, addQuestion, addTopic, getRandomString} from "./utils/pageUtils.js";
 
 test('Start quiz', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');
@@ -36,7 +36,7 @@ test('Start quiz', async ({ page }) => {
 });
 
 test('Choose the wrong answer', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');
@@ -75,7 +75,7 @@ test('Choose the wrong answer', async ({ page }) => {
 });
 
 test('Choose the correct answer', async ({ page }) => {
-    await page.goto('http://localhost:7777/');
+    await page.goto('http://localhost:7777/', { waitUntil: 'load' });
     await page.getByRole('link', { name: 'Log In' }).click();
     await page.getByLabel('Email').click();
     await page.getByLabel('Email').fill('admin@mail.com');
