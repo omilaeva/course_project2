@@ -59,7 +59,7 @@ jobs:
           PGHOST: ${{ vars.PG_HOST }}
           PGPORT: ${{ vars.PG_PORT }}
           PGDATABASE: ${{ vars.PG_DB }}
-        run: docker compose run --entrypoint=npx e2e-playwright playwright test && docker compose rm -sf
+        run: docker compose run --entrypoint=npx e2e-playwright playwright test --workers=1 && docker compose rm -sf
         
   deploy:
     runs-on: ubuntu-latest
