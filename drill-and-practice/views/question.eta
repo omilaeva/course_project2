@@ -63,7 +63,9 @@
             <form class="w3-container" method="POST"
                   action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
                 <p><label class="w3-large" for="option_text"><i class="fa fa-align-justify"></i> Option</label></p>
-                <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"><% if (it.optionText) { %><%=it.optionText%><% } %></textarea>
+                <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"autofocus="autofocus" >
+                    <% if (it.optionText) { %><%=it.optionText%><% } %>
+                </textarea>
             </br>
 
             <label class="w3-large" for="is_correct"><i class="fa fa-check-square-o"></i> Is correct? </label>

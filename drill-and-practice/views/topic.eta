@@ -1,7 +1,7 @@
 <% layout("./layouts/layout.eta") %>
 
 <div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; height:100vh;">
+<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px;min-height:100vh">
 <% if (it.topic) { %>
 
         <% if (it.errors) { %>
@@ -32,8 +32,8 @@
         <h2 class="w3-wide w3-center">Add question</h2>
         <form  class="w3-container" method="POST" action="/topics/<%= it.topic.id %>/questions">
             <p><label class="w3-large" for="question_text"><i class="fa fa-edit"></i> Enter question: </label></p>
-            <input class="w3-input w3-border" type="text" id="question_text" name="question_text" minlength="1"
-            <% if (it.question_text) { %> value="<%= it.question_text %>" <% } %>/>
+            <input class="w3-input w3-border" type="text" id="question_text" name="question_text" autofocus="autofocus"
+                   minlength="1" <% if (it.question_text) { %> value="<%= it.question_text %>" <% } %>/>
             <input  class="w3-btn w3-black w3-padding-16 w3-section w3-right" type="submit" value="Add"/>
         </form>
     </div>
