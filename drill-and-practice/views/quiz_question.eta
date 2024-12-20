@@ -5,9 +5,9 @@
     <h2 class="w3-wide w3-center">Quiz</h2>
     <div class="w3-content">
         <% if ( it.error ) { %>
-            <p class="w3-large"><%= it.error %></p>
+            <p class="error w3-large"><%= it.error %></p>
         <% } else { %>
-        <p class="w3-xlarge" id="questionText"><%= it.question.question_text %></p>
+        <p class="w3-xlarge" id="questionText" style="overflow-wrap: break-word;"><%= it.question.question_text %></p>
         <fieldset class="w3-container">
             <legend class="w3-large">Choose one option: </legend>
             <table class="w3-table w3-bordered">

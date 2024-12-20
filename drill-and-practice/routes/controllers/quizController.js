@@ -4,7 +4,7 @@ import * as optionManager from "../../managers/optionManager.js";
 import * as answerManager from "../../managers/answerManager.js";
 
 const showQuizMain = async ({render}) => {
-    render("quiz.eta", {topics: await topicManager.getAllTopics()});
+    render("quiz.eta", {topics: await topicManager.getAllTopicsWithAvailableQuestions()});
 }
 
 const getRandomQuestion = async ({params, response, render}) => {
@@ -19,11 +19,11 @@ const getRandomQuestion = async ({params, response, render}) => {
 
 const showQuizQuestion = async ({params, render}) => {
     const questionId = params.qId;
-    const question = await questionManager.getById(questionId);
+    const question = await questionManager.getByIdForQuiz(questionId);
     if (question) {
         render("quiz_question.eta", {question: question, options: await optionManager.getAllByQuestionId(questionId)});
     } else {
-        render("quiz_question.eta", {error: "No such question"});
+        render("quiz_question.eta", {error: "No such question or there are no options for that question"});
     }
 }
 
@@ -34,6 +34,7 @@ const answer = async ({user, params, response}) => {
     const correctOption = await optionManager.getCorrectAnswerByQuestionId(questionId);
     if (!correctOption) {
         response.redirect(`/quiz/${params.tId}/questions/${questionId}/incorrect`);
+        return;
     }
     console.log(`Correct option id = ${correctOption.id}, your answer id = ${optionId}`);
     if (correctOption.id === optionId) {

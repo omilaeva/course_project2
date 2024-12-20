@@ -19,6 +19,10 @@ const getAllTopics = async () => {
     return await topicService.getAllTopics();
 }
 
+const getAllTopicsWithAvailableQuestions = async () => {
+    return await topicService.getAllTopicsWithAvailableQuestions();
+}
+
 const addTopic = async (userId, name) => {
     const [passes, errors] = validateTextLength(["Topic name", name], 1);
     if (passes) {
@@ -35,4 +39,4 @@ const getTopicsCount = async () => {
     return await topicService.getTopicsCount();
 }
 
-export {getTopicById, deleteTopicById, getAllTopics, addTopic, getTopicsCount};
+export {getTopicById, deleteTopicById, getAllTopics, getAllTopicsWithAvailableQuestions, addTopic, getTopicsCount};

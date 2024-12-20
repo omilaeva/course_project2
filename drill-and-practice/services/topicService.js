@@ -21,6 +21,16 @@ const getAllTopics = async () => {
     return [];
 }
 
+const getAllTopicsWithAvailableQuestions = async () => {
+    try {
+        return await sql`SELECT DISTINCT(topics.id), topics.name FROM topics INNER JOIN  questions ON topics.id=questions.topic_id 
+            INNER JOIN question_answer_options ON question_answer_options.question_id=questions.id;`;
+    } catch (e) {
+        console.log(e);
+    }
+    return [];
+}
+
 const addTopic = async (userId, name) => {
     try {
         const result = await sql`INSERT INTO topics(user_id, name) VALUES(${userId}, ${name})`;
@@ -53,4 +63,4 @@ const getTopicsCount = async () => {
     return 0;
 }
 
-export {getTopicById, getAllTopics, addTopic, deleteTopicById, getTopicsCount};
+export {getTopicById, getAllTopics, getAllTopicsWithAvailableQuestions, addTopic, deleteTopicById, getTopicsCount};

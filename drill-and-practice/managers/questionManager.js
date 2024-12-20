@@ -51,6 +51,10 @@ const getQuestionsCount = async () => {
     return await questionService.getQuestionsCount();
 }
 
+const getByIdForQuiz = async (id) => {
+    return await questionService.getByIdForQuiz(id);
+}
+
 export {
     add,
     getById,
@@ -59,5 +63,6 @@ export {
     getRandomQuestionByTopicId,
     getRandomQuestion,
     deleteByTopicId,
-    getQuestionsCount
+    getQuestionsCount,
+    getByIdForQuiz,
 }
