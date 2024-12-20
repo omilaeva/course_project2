@@ -42,7 +42,9 @@ const deleteById = async (id) => {
 
 const getRandomQuestionByTopicId = async (topicId) => {
     try {
-        const result = await sql`SELECT * FROM questions WHERE topic_id=${topicId} ORDER BY RANDOM() LIMIT 1`;
+        const result = await sql`SELECT id FROM (SELECT distinct(questions.id) FROM questions 
+            INNER JOIN question_answer_options ON question_answer_options.question_id=questions.id 
+            AND questions.topic_id=${topicId}) as s ORDER BY RANDOM() LIMIT 1`;
         if (result && result.length === 1) {
             return result[0];
         }
@@ -59,7 +61,7 @@ const getRandomQuestion = async () => {
             return result[0];
         }
     } catch (e) {
-        console.log(`Exception in getRandomQuestionByTopicId(): ${e}`);
+        console.log(`Exception in getRandomQuestion(): ${e}`);
     }
     return null;
 }
@@ -84,6 +86,20 @@ const getQuestionsCount = async () => {
     return 0;
 }
 
+const getByIdForQuiz = async (id) => {
+    try {
+        const result = await sql`SELECT DISTINCT(questions.id), questions.question_text, questions.topic_id FROM questions 
+            INNER JOIN question_answer_options ON question_answer_options.question_id=questions.id 
+            AND questions.id=${id}`;
+        if (result && result.length === 1) {
+            return result[0];
+        }
+    } catch (e) {
+        console.log(`Exception in getByIdForQuiz(): ${e}`);
+    }
+    return null;
+}
+
 export {
     add,
     getAllByTopicId,
@@ -92,5 +108,6 @@ export {
     getRandomQuestionByTopicId,
     getRandomQuestion,
     deleteByTopicId,
-    getQuestionsCount
+    getQuestionsCount,
+    getByIdForQuiz,
 }
