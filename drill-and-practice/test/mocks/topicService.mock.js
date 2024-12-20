@@ -2,14 +2,11 @@ let topics = [];
 let currentId = 1;
 
 const getAllTopics = async () => {
-    // console.log("getAllTopics is mocked");
-    // console.log(topics);
     return topics;
 }
 
 const addTopic = async (userId, name) => {
     topics.push({id: currentId++, userId: userId, name: name});
-    // console.log("Add topic");
     return 1;
 }
 

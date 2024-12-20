@@ -27,11 +27,14 @@ const showQuizQuestion = async ({params, render}) => {
     }
 }
 
-const answer = async ({user, params, state, response}) => {
+const answer = async ({user, params, response}) => {
     const optionId = Number(params.oId);
     const questionId = Number(params.qId);
     await answerManager.saveAnswer(user.id, questionId, optionId);
     const correctOption = await optionManager.getCorrectAnswerByQuestionId(questionId);
+    if (!correctOption) {
+        response.redirect(`/quiz/${params.tId}/questions/${questionId}/incorrect`);
+    }
     console.log(`Correct option id = ${correctOption.id}, your answer id = ${optionId}`);
     if (correctOption.id === optionId) {
         response.redirect(`/quiz/${params.tId}/questions/${questionId}/correct`);

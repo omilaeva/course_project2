@@ -3,7 +3,7 @@ import * as optionService from "optionService";
 import * as answerManager from "./answerManager.js";
 
 const add = async (questionId, optionText, isCorrect) => {
-    const [passes, errors] = validateTextLength(["Option text", optionText]);
+    const [passes, errors] = validateTextLength(["Option text", optionText], 1);
     if (passes) {
         if (await optionService.add(questionId, optionText, isCorrect)) {
             return [true, []];

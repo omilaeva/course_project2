@@ -7,7 +7,6 @@ const processLogin = async ({ render, request, response, state }) => {
     const user = await loginManager.processLogin(params.get("email"), params.get("password"));
     console.dir(user);
     if (!user) {
-        console.log("Render login form with errors");
         render("login.eta", {errors: ["Wrong email or password"], email: params.get("email")});
         return;
     }

@@ -16,12 +16,11 @@ const validateTextLength = ([name, text], length = 2) => {
 }
 
 const validateEmail = async (email) => {
-
     const validationRules = {
-        email: [required, isEmail]
+        Email: [required, isEmail]
     };
 
-    return await validate({email: email}, validationRules);
+    return await validate({Email: email}, validationRules);
 }
 
 export {validateTextLength, validateEmail}
