@@ -20,7 +20,7 @@ const getAllTopics = async () => {
 }
 
 const addTopic = async (userId, name) => {
-    const [passes, errors] = validateTextLength(["Topic name", name], 4);
+    const [passes, errors] = validateTextLength(["Topic name", name], 1);
     if (passes) {
         if (await topicService.addTopic(userId, name)) {
             return [true, []];

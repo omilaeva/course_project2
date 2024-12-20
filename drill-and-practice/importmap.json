@@ -2,6 +2,7 @@
   "imports": {
     "topicService" : "./services/topicService.js",
     "questionService" : "./services/questionService.js",
-    "optionService" : "./services/optionService.js"
+    "optionService" : "./services/optionService.js",
+    "userService" : "./services/userService.js"
   }
 }

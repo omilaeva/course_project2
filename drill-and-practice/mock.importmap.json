@@ -2,6 +2,7 @@
   "imports": {
     "topicService": "./test/mocks/topicService.mock.js",
     "questionService" : "./test/mocks/questionService.mock.js",
-    "optionService" : "./test/mocks/optionService.mock.js"
+    "optionService" : "./test/mocks/optionService.mock.js",
+    "userService" : "./test/mocks/userService.mock.js"
   }
 }

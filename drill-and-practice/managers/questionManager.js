@@ -3,7 +3,7 @@ import * as questionService from "questionService";
 import * as optionManager from "./optionManager.js";
 
 const add = async (userId, topicId, text) => {
-    const [passes, errors] = validateTextLength(["Question text", text]);
+    const [passes, errors] = validateTextLength(["Question text", text], 1);
 
     if (passes) {
         if (await questionService.add(userId, topicId, text)) {

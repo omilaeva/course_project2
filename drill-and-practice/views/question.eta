@@ -51,11 +51,11 @@
         </div>
 
         <% if (it.errors) { %>
-        <% it.errors.forEach((error) => { %>
-        <p class="error">
-            <%= error %>
-        </p>
-        <% }); %>
+            <div class="w3-container">
+                <% it.errors.forEach((error) => { %>
+                    <p class="w3-large w3-red"><%= error %></p>
+                <% }); %>
+            </div>
         <% } %>
 
         <div class="w3-container w3-padding-64 w3-highway-green" style="max-width:800px">
@@ -63,9 +63,7 @@
             <form class="w3-container" method="POST"
                   action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
                 <p><label class="w3-large" for="option_text"><i class="fa fa-align-justify"></i> Option</label></p>
-                <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"autofocus="autofocus" >
-                    <% if (it.optionText) { %><%=it.optionText%><% } %>
-                </textarea>
+                <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"autofocus="autofocus" ><% if (it.optionText) { %><%=it.optionText%><% } %></textarea>
             </br>
 
             <label class="w3-large" for="is_correct"><i class="fa fa-check-square-o"></i> Is correct? </label>
