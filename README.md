@@ -1,6 +1,6 @@
 # Course Project 2
 
-The course project from the **Web Software Development** course.
+The course project from the [**Web Software Development**](https://fitech101.aalto.fi/courses/web-software-development/) course.
 
 This web application provides a list of topics and allows users to 
 create one-choice questions within those topics. These questions can 
