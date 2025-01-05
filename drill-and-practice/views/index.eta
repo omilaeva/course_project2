@@ -1,34 +1,30 @@
 <% layout("./layouts/layout.eta") %>
-<div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; height:100vh;">
-    <% if (!it.user) { %>
-        <a class="w3-button w3-black w3-margin-bottom" href="/auth/register">Register</a>
-        <a class="w3-button w3-black w3-margin-bottom" href="/auth/login">Log In</a>
-    <% } %>
-    <p class="w3-large">
+<div class="card">
+<div class="card-body">
+    <p>
         Welcome to the quiz website where you can create questions and add options for them.
         Or just solve some quiz trivia prepared by you classmates. You need to register and
         login to use the website's functionality.
     </p>
-    <p class="w3-large">
+    <p>
         There is a list of available topics on the Topics page. Only admins can add new topics.
         But you can open any existing topic and add questions with options. Remember that there
         should be only one correct option for each question. No multi-choice questions are allowed
         (at least at the moment;)).
     </p>
-    <p class="w3-large">
-        To start the quiz, choose QUIZ on the navigation bar and then a certain topic. You'll get
-        one random question at a time. Each question is supposed to have only one correct question.
+    <p>
+        To start the quiz, choose <mark>Quiz</mark> on the navigation bar and then a certain topic. You'll get
+        one random question at a time. Each question is supposed to have only one correct answer.
         When you choose one of the options, you'll get the result if it was correct or not. And can
         move to the next random question in the same topic.
     </p>
-    <p class="w3-large">
+    <p>
         Here is some stats:
     </p>
-    <ul class="w3-ul w3-sand w3-card-4" style="width:50%">
-        <li>Total number of topics: <%= it.topicsCount %></li>
-        <li>Total number of questions: <%= it.questionsCount %></li>
-        <li>Total number of all user's answers: <%= it.answersCount %></li>
+    <ul class="list-group">
+        <li class="list-group-item">Total number of topics: <span class="badge bg-primary"><%= it.topicsCount %></span></li>
+        <li class="list-group-item">Total number of questions: <span class="badge bg-primary"><%= it.questionsCount %></span></li>
+        <li class="list-group-item">Total number of all user's answers: <span class="badge bg-primary"><%= it.answersCount %></span></li>
     </ul>
 </div>
 </div>

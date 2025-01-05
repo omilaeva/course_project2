@@ -1,83 +1,60 @@
 <% layout("./layouts/layout.eta") %>
 
-<div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px;">
-    <% if (it.topic && it.question) { %>
-    <h1 class="w3-wide w3-center" style="overflow-wrap: break-word;">
-        <%= it.topic.name %>
-    </h1>
-    <br/>
-    <a class="w3-button w3-black w3-margin-bottom" href="/topics/<%= it.topic.id %>">Back</a>
-    <div class="w3-card-4">
-        <header class="w3-container">
-            <h2 class="w3-wide w3-center" style="overflow-wrap: break-word;">
-                <%= it.question.question_text %>
-            </h2>
-        </header>
-        <div class="w3-responsible">
-            <% if (it.options.length > 0) { %>
-            <table class="w3-table w3-bordered">
-                <thead>
+<div class="row justify-content-center mb-3">
+<div class="col-md-8">
+<% if (it.topic && it.question) { %>
+<div class="mb-3">
+    <a class="btn btn-outline-primary" href="/topics/<%= it.topic.id %>">Back</a>
+</div>
+<div class="card mb-3">
+    <div class="card-header"><h2 class="text-center"><%= it.topic.name %></h2></div>
+    <div class="card-body">
+        <h5 class="card-title text-center"><%= it.question.question_text %></h5>
+
+        <div class="table-responsive">
+        <table class="table table-striped" id="optionTable">
+            <thead>
                 <tr>
-                    <th><strong>Option</strong></th>
-                    <th><strong>Is correct?</strong></th>
-                    <th><strong>Action</strong></th>
+                    <th scope="col">Option</th>
+                    <th scope="col">Is correct?</th>
+                    <th scope="col">Action</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <% it.options.forEach((option) => { %>
                 <tr>
-                    <td>
+                    <td style="word-break: break-word;">
                         <%= option.option_text %>
                     </td>
                     <td>
-                        <input class="w3-check" type="checkbox" disabled <% if (option.is_correct) { %> checked <% } %>
+                        <input class="form-check-input" type="checkbox" disabled <% if (option.is_correct) { %> checked <% } %>/>
                     </td>
                     <td>
-                        <form class="w3-container" method="POST"
+                        <form method="POST"
                               action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
-                            <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Delete"/>
+                            <button type="submit" class="btn btn-outline-danger"><i class="fa-solid fa-remove"></i></button>
                         </form>
                     </td>
                 </tr>
                 <% }) %>
-                </tbody>
-            </table>
-            <% } else { %>
-            <form class="w3-container" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
-                <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Delete question"/>
-            </form>
-            <% } %>
+            </tbody>
+        </table>
         </div>
-
-        <% if (it.errors) { %>
-            <div class="w3-container">
-                <% it.errors.forEach((error) => { %>
-                    <p class="w3-large w3-red"><%= error %></p>
-                <% }); %>
-            </div>
+        <%  if (it.options.length === 0) { %>
+        <div class="mb-3" id="deleteQuestionDiv">
+        <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
+            <button type="submit" class="btn btn-outline-danger">Delete question</button>
+        </form>
+        </div>
         <% } %>
-
-        <div class="w3-container w3-padding-64 w3-highway-green" style="max-width:800px">
-            <h2 class="w3-wide w3-center">Add option</h2>
-            <form class="w3-container" method="POST"
-                  action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
-                <p><label class="w3-large" for="option_text"><i class="fa fa-align-justify"></i> Option</label></p>
-                <textarea class="w3-input" name="option_text" id="option_text" rows="5" cols="33"autofocus="autofocus" ><% if (it.optionText) { %><%=it.optionText%><% } %></textarea>
-            </br>
-
-            <label class="w3-large" for="is_correct"><i class="fa fa-check-square-o"></i> Is correct? </label>
-            <input class="w3-check" type="checkbox" name="is_correct" id="is_correct"
-            <% if (it.optionIsCorrect) { %> checked
-            <% } %>/>
-        </br>
-    </br>
-    <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Add"/>
-</form>
+        <input type="hidden" id="questionId" value="<%= it.question.id %>"/>
+        <input type="hidden" id="topicId" value="<%= it.topic.id %>"/>
+        <button id="addOption" class="btn btn-outline-primary">Add option</button>
+    </div>
 </div>
-        </div>
 <% } else { %>
 <h1>Unavailable</h1>
 <% } %>
-        </div>
-        </div>
+</div>
+</div>
+<script src="/scripts/addOptionScript.js"></script>

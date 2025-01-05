@@ -24,12 +24,12 @@ const addQuestion = async (page, questionText) => {
 }
 
 async function addOption(page, optionText, isChecked) {
-    await page.locator('#option_text').click();
-    await page.locator('#option_text').fill(optionText);
+    await page.getByRole('button', { name: 'Add option' }).click();
+    await page.getByPlaceholder('Enter option').fill(optionText);
     if (isChecked) {
-        await page.getByLabel('Is correct?').check();
+        await page.locator('input[name="isCorrect"]').check();
     }
-    await page.getByRole('button', { name: 'Add' }).click();
+    await page.locator('.submit-option').click();
 }
 
 function getRandomString(length) {

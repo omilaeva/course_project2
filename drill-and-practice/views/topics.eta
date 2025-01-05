@@ -1,43 +1,65 @@
 <% layout("./layouts/layout.eta") %>
         <!-- The Topic Section -->
-<div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; min-height: 100vh">
-    <% if (it.errors) { %>
+
+<% if (it.errors) { %>
+<div class="row justify-content-center mb-3">
+<div class="col-md-6">
+    <div class="card text-bg-danger">
+        <div class="card-header">Errors:</div>
+        <div class="card-body">
     <% it.errors.forEach((error) => { %>
-    <p class="w3-xlarge w3-red"><%= error %></p>
+    <p class="card-text"><%= error %></p>
     <% }); %>
-    <% } %>
-    <h2 class="w3-wide w3-center">Topics</h2>
-    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+        </div>
+    </div>
+</div>
+</div>
+<% } %>
+
+<div class="card mb-3">
+<div class="card-header"><h2 class="text-center">Topics</h2></div>
+<div class="card-body">
+    <div class="row mb-3">
     <% let i = 0; %>
     <% it.topics.forEach((topic) => { %>
     <% if (i++ === 3) { i = 1; %>
     </div>
-    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+    <div class="row mb-3">
     <% } %>
-      <div class="w3-third w3-margin-bottom">
-        <div class="w3-container w3-sand">
-            <p style="overflow-wrap: break-word;"><b><%= topic.name %></b></p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="location.href = '/topics/<%= topic.id %>'">Open</button>
-            <% if (it.user.admin) { %>
-            <form method="POST" action="/topics/<%= topic.id %>/delete">
-                <input type="submit" class="w3-button w3-black w3-margin-bottom" value="Delete"/>
-            </form>
-            <% } %>
-        </div>
+        <div class="col-sm-4">
+            <div class="card topic-card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= topic.name %></h5>
+                    <div class="d-flex align-items-center gap-3">
+                    <a class="btn btn-outline-primary" href="/topics/<%= topic.id %>">Open</a>
+                    <% if (it.user.admin) { %>
+                        <form method="POST" action="/topics/<%= topic.id %>/delete">
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    <% } %>
+                    </div>
+                </div>
+            </div>
       </div>
     <% }); %>
     </div>
-    <% if (it.user.admin) { %>
-    <div class="w3-container w3-padding-64 w3-highway-green" style="max-width:800px">
-        <h2 class="w3-wide w3-center">Add topic</h2>
-        <form  class="w3-container" method="POST" action="/topics">
-            <p><label class="w3-large" for="name"><i class="fa fa-edit"></i> Topic name</label></p>
-            <input class="w3-input w3-border" type="text" id="name" name="name" autofocus="autofocus"
+</div>
+</div>
+
+    <div class="row justify-content-center ">
+        <div class="col-md-6">
+    <div class="card">
+        <div class="card-header"><h2 class="text-center">Add topic</h2></div>
+        <div class="card-body">
+        <form  method="POST" action="/topics">
+            <div class="mb-3">
+            <label class="form-label" for="name"><i class="fa-solid fa-edit"></i> Topic name</label>
+            <input class="form-control" type="text" id="name" name="name" autofocus="autofocus"
                    minlength="1" <% if (it.name) { %> value="<%= it.name %>" <% } %>/>
-            <input  class="w3-btn w3-black w3-padding-16 w3-section w3-right" type="submit" value="Add"/>
+            </div>
+            <button  class="btn btn-outline-primary" type="submit">Add</button>
         </form>
+        </div>
     </div>
-    <% } %>
-</div>
-</div>
+        </div>
+    </div>

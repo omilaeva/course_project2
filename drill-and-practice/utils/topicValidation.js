@@ -2,7 +2,7 @@ import { validate, required, isEmail } from "https://deno.land/x/validasaur@v0.1
 
 const validateTextLength = ([name, text], length = 2) => {
     if (!text) {
-        return [false, [`${name} is absent`]];
+        return [false, [`${name} is required`]];
     }
     const trimmedText = text.trim();
     if (trimmedText.length < length) {

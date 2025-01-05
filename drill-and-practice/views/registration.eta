@@ -1,28 +1,41 @@
 <% layout("./layouts/layout.eta") %>
 
-<div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; height:100vh;">
-
 <% if (it.errors) { %>
-  <div class="w3-container">
+<div class="row justify-content-center mb-3">
+<div class="col-md-6">
+  <div class="card text-bg-danger">
+    <div class="card-header">Errors:</div>
+    <div class="card-body">
     <% it.errors.forEach((error) => { %>
-      <p class="error w3-xlarge w3-red"><%= error %></p>
+      <p class="card-text error"><%= error %></p>
   <% }); %>
   </div>
+  </div>
+</div>
+</div>
 <% } %>
 
-  <div class="w3-container w3-padding-64 w3-highway-green" style="max-width:800px">
-    <h2 class="w3-wide w3-center" >Registration form</h2>
-<form class="w3-container" method="POST" action="/auth/register">
-  <label for="email" class="w3-large"><i class="fa fa-user"></i> Email</label>
-    <input class="w3-input" type="email" name="email"  id="email" <% if (it.email) { %> value="<%= it.email %>" <% } %>/>
-  <br/>
-  <label for="password" class="w3-large"><i class="fa fa-lock"></i> Password</label>
-    <input class="w3-input" id="password" type="password" name="password" /><br/>
-  <input class="w3-button w3-black w3-margin-bottom" type="submit" value="Register" />
-</form>
+<div class="row justify-content-center">
+<div class="col-md-6">
+  <div class="card card-default">
+    <div class="card-body">
+    <h2 class="text-center" >Registration form</h2>
+    <form method="POST" action="/auth/register">
+      <div class="mb-3">
+        <label for="email"><i class="fa-solid fa-user"></i> Email</label>
+        <input class="form-control" type="email" name="email"  id="email" <% if (it.email) { %> value="<%= it.email %>" <% } %>/>
+      </div>
+      <div class="mb-3">
+        <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+        <input class="form-control" id="password" type="password" name="password" /><br/>
+      </div>
+      <div class="d-flex align-items-center justify-content-between">
+        <button class="btn btn-primary" type="submit">Sign Up</button>
+        <p> Already registered? <a href="/auth/login">Login</a></p>
+      </div>
+    </form>
+    </div>
   </div>
+</div>
+</div>
 
-  <p class="w3-large"> Already registered? <a class="w3-button w3-black w3-margin-bottom" href="/auth/login">Login</a></p>
-</div>
-</div>

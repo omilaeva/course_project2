@@ -3,10 +3,12 @@ import * as optionService from "optionService";
 import * as answerManager from "./answerManager.js";
 
 const add = async (questionId, optionText, isCorrect) => {
+    console.log(optionText);
     const [passes, errors] = validateTextLength(["Option text", optionText], 1);
     if (passes) {
-        if (await optionService.add(questionId, optionText, isCorrect)) {
-            return [true, []];
+        const id = await optionService.add(questionId, optionText, isCorrect);
+        if (id !== -1) {
+            return [true, id];
         } else {
             errors.push(`Can't add option ${optionText}`);
         }
