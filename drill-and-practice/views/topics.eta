@@ -27,7 +27,7 @@
     <div class="row mb-3">
     <% } %>
         <div class="col-sm-4">
-            <div class="card">
+            <div class="card topic-card">
                 <div class="card-body">
                     <h5 class="card-title"><%= topic.name %></h5>
                     <div class="d-flex align-items-center gap-3">
@@ -46,7 +46,6 @@
 </div>
 </div>
 
-    <% if (it.user.admin) { %>
     <div class="row justify-content-center ">
         <div class="col-md-6">
     <div class="card">
@@ -64,4 +63,3 @@
     </div>
         </div>
     </div>
-    <% } %>

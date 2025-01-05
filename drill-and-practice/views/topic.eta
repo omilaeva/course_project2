@@ -33,7 +33,7 @@
     <div class="row mb-3">
         <% } %>
         <div class="col-sm-4">
-            <div class="card question">
+            <div class="card question-card">
                 <div class="card-body">
                     <h5 class="card-title"><%= question.question_text %></h5>
                     <div class="d-flex align-items-center gap-3">

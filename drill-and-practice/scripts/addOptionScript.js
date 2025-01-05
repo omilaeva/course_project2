@@ -8,7 +8,7 @@ addOptionButton.addEventListener('click', () => {
     const cell2 = newRow.insertCell(1);
     const cell3 = newRow.insertCell(2);
 
-    cell1.innerHTML = `<textarea class="form-control" name="newOption" placeholder="Enter option" rows="1" cols="33" autofocus="autofocus" ></textarea>`;
+    cell1.innerHTML = `<textarea class="form-control" id="newOption" name="newOption" placeholder="Enter option" rows="1" cols="33" autofocus></textarea>`;
     cell2.innerHTML = `<input type="checkbox" class="form-check-input" name="isCorrect">`;
     cell3.innerHTML = `<div class="d-flex align-items-center gap-3"><button class="btn btn-outline-success submit-option"><i class="fa-solid fa-add"></i></button>` +
         `<button type="submit" class="btn btn-outline-danger delete-row"><i class="fa-solid fa-remove"></i></button></div>`;
@@ -66,5 +66,6 @@ addOptionButton.addEventListener('click', () => {
                 alert('Error submitting data.');
             });
     });
+    document.getElementById('newOption').focus();
 });
 

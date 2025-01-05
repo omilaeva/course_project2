@@ -14,7 +14,7 @@ test('Add topic', async ({ page }) => {
     await page.getByRole('button', { name: 'Login' }).click();
     const topicName = getRandomString(5);
     await addTopic(page, topicName);
-    await expect(page.locator('.w3-sand').filter({hasText: topicName})).toBe;
+    await expect(page.locator('div').filter({hasText: topicName})).toBe;
 });
 
 test('Go to the empty topic page', async ({ page }) => {
@@ -29,5 +29,5 @@ test('Go to the empty topic page', async ({ page }) => {
     await addTopic(page, topicName);
     await expect(page.locator('div').filter({ hasText: topicName })).toBe;
     await page.locator('div').filter({ hasText: topicName }).locator('button').first().click();
-    await expect(page.locator('.question')).toHaveCount(0);
+    await expect(page.locator('.question-card')).toHaveCount(0);
 });

@@ -11,9 +11,9 @@ Deno.test("Add option", async() => {
     const text = generateString(100);
     const isCorrect = false;
     const questionId = 1;
-    const [done, errors] = await optionManager.add(questionId, text, isCorrect);
+    const [done, res] = await optionManager.add(questionId, text, isCorrect);
     assertEquals(done, true);
-    assertEquals(errors.length, 0);
+    assertNotEquals(res, -1);
     const result = await optionManager.getAllByQuestionId(questionId);
     let questionCount = 0;
     for (let i = 0; i < result.length; i++) {
@@ -28,9 +28,9 @@ Deno.test("Delete option", async () => {
     const text = generateString(100);
     const isCorrect = false;
     const questionId = 1;
-    const [done, errors] = await optionManager.add(questionId, text, isCorrect);
+    const [done, res] = await optionManager.add(questionId, text, isCorrect);
     assertEquals(done, true);
-    assertEquals(errors.length, 0);
+    assertNotEquals(res, -1);
     let result = await optionManager.getAllByQuestionId(questionId);
     let optionId = 0;
     for (let i = 0; i < result.length; i++) {
