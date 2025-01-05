@@ -1,20 +1,22 @@
 <% layout("./layouts/layout.eta") %>
         <!-- The Topic Section -->
-<div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; min-height:100vh;">
-    <h2 class="w3-wide w3-center">Quiz</h2>
-    <p class="w3-large">There are questions for the following topics:</p>
-    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+<div class="card mb-3">
+<div class="card-header"><h2 class="text-center" style="overflow-wrap: break-word;">Quiz</h2></div>
+<div class="card-body">
+    <p class="card-title">There are questions for the following topics:</p>
+    <div class="row mb-3">
         <% let i = 0; %>
         <% it.topics.forEach((topic) => { %>
         <% if (i++ === 3) { i = 1; %>
     </div>
-    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+    <div class="row mb-3">
         <% } %>
-        <div class="w3-third w3-margin-bottom">
-            <div class="w3-container w3-sand">
-                <p style="overflow-wrap: break-word;"><b><%= topic.name %></b></p>
-                <a class="w3-button w3-black w3-margin-bottom" href="/quiz/<%= topic.id %>">Choose</a>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= topic.name %></h5>
+                    <a class="btn btn-outline-primary" href="/quiz/<%= topic.id %>">Choose</a>
+                </div>
             </div>
         </div>
         <% }); %>

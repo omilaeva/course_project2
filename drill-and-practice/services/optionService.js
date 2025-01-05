@@ -12,12 +12,12 @@ const getAllByQuestionId = async (questionId) => {
 const add = async (questionId, optionText, isCorrect) => {
     try {
         const result = await sql`INSERT INTO question_answer_options(question_id, option_text, is_correct) 
-            VALUES (${questionId}, ${optionText}, ${isCorrect})`;
-        return result.count;
+            VALUES (${questionId}, ${optionText}, ${isCorrect}) RETURNING id`;
+        return result[0].id;
     } catch (e) {
         console.log(e);
     }
-    return 0;
+    return -1;
 }
 
 const deleteById = async (id) => {

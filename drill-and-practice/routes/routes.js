@@ -7,6 +7,7 @@ import * as loginController from "./controllers/loginController.js";
 import * as quizController from "./controllers/quizController.js";
 import * as quizApi from "./apis/quizApi.js";
 import * as mainController from "./controllers/mainController.js";
+import * as optionsApi from "./apis/optionsApi.js";
 
 const router = new Router();
 
@@ -16,7 +17,7 @@ router.get("/auth/register", registrationController.showRegistrationForm);
 router.post("/auth/register", registrationController.registerUser);
 router.get("/auth/login", loginController.showLoginForm);
 router.post("/auth/login", loginController.processLogin);
-router.get("/logout", loginController.logout);
+router.get("/auth/logout", loginController.logout);
 
 
 router.get("/topics", topicController.listTopics);
@@ -26,7 +27,7 @@ router.post("/topics/:id/delete", topicController.deleteTopicById);
 router.post("/topics/:id/questions", questionController.addQuestion);
 router.get("/topics/:id/questions/:qid", questionController.showQuestionById);
 router.post("/topics/:id/questions/:qid/delete", questionController.deleteQuestionById);
-router.post("/topics/:id/questions/:qid/options", optionController.addOption);
+// router.post("/topics/:id/questions/:qid/options", optionController.addOption);
 router.post("/topics/:id/questions/:qid/options/:oid/delete", optionController.deleteOptionById);
 
 router.get("/quiz", quizController.showQuizMain);
@@ -38,5 +39,6 @@ router.get("/quiz/:tId/questions/:qId/incorrect", quizController.processIncorrec
 
 router.get("/api/questions/random", quizApi.getRandomQuestion);
 router.post("/api/questions/answer", quizApi.checkAnswer)
+router.post("/api/options", optionsApi.addOption);
 
 export { router };

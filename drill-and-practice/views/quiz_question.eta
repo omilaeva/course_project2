@@ -1,31 +1,34 @@
 <% layout("./layouts/layout.eta") %>
 <!-- The Quiz -->
-<div class="w3-highway-green" id="topic">
-<div class="w3-container w3-content w3-padding-64 w3-2017-greenery" style="max-width:800px; height:100vh;">
-    <h2 class="w3-wide w3-center">Quiz</h2>
-    <div class="w3-content">
+<div class="row justify-content-center mb-3">
+<div class="col-md-8">
+<div class="card mb-3">
+<div class="card-header"><h2 class="text-center" style="overflow-wrap: break-word;">Quiz</h2></div>
+    <div class="card-body">
         <% if ( it.error ) { %>
             <p class="error w3-large"><%= it.error %></p>
         <% } else { %>
-        <p class="w3-xlarge" id="questionText" style="overflow-wrap: break-word;"><%= it.question.question_text %></p>
-        <fieldset class="w3-container">
-            <legend class="w3-large">Choose one option: </legend>
-            <table class="w3-table w3-bordered">
+        <h3 class="card-title text-center" style="overflow-wrap: break-word;"><%= it.question.question_text %></h3>
+        <fieldset>
+            <legend>Choose one option: </legend>
+            <div class="table-responsive">
+            <table class="table table-striped">
         <% it.options.forEach((option) => { %>
             <tr>
-                <td><p class="w3-large"><%= option.option_text %></p></td>
+                <td style="word-break: break-word;"><%= option.option_text %></td>
                 <td>
-                    <form class="w3-container w3-padding-large" method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= option.id %>">
-                        <input class="w3-button w3-black" type="submit" value="Choose"/>
+                    <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= option.id %>">
+                        <button class="btn btn-outline-primary" type="submit">Choose</button>
                     </form>
                 </td>
             </tr>
         <% }); %>
             </table>
+            </div>
         </fieldset>
-        </br>
-        <button class="w3-button w3-black w3-margin-bottom" onclick="location.href = '/quiz'">Choose other topic</button>
+        <button class="btn btn-outline-primary" onclick="location.href = '/quiz'">Choose other topic</button>
         <% } %>
     </div>
-</div></div>
-
+</div>
+</div>
+</div>
